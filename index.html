@@ -1,0 +1,130 @@
+<!DOCTYPE html>
+<html lang="zh_CN">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>🪄 令牌获取器 🪄</title>
+  <link rel="stylesheet" href="css/bulma-0.9.4.min.css">
+  <link rel="icon" href="https://imagehost.ivoura.de/favicon.ico" type="image/x-icon">
+  <style>
+    [v-cloak] {
+      display: none;
+    }
+
+    html, body {
+      height: 100%;
+      font-family: 'ceyyt_W03', monospace;
+      background-image: url('img/bg.webp');
+      background-position: center;
+      background-repeat: no-repeat;
+      background-attachment: fixed;
+      background-size: cover;
+      text-shadow: 0 0 5px #fff;
+    }
+
+    body > footer {
+      position: sticky;
+      top: 100vh;
+    }
+
+    .footer {
+      padding: 2rem;
+    }
+    .code-reel {
+      color: grey;
+    }
+
+    @media screen and (min-width: 1068px) {
+      .container {
+        max-width: 600px;
+        width: 600px;
+      }
+    }
+
+    @font-face {
+      font-family: "ceyyt_W03";
+      src: url("font/ceyytW03.ttf") format('truetype');
+    }
+
+    h1 {
+    font-family: "ceyyt_W03", monospace;
+  }
+
+  </style>
+</head>
+<body>
+
+  <script defer src="js/assets/vue-3.4.20.global.prod.js"></script>
+  <script defer src="js/assets/otpauth-9.1.3.min.js"></script>
+  <script defer src="js/assets/clipboard-2.0.6.min.js"></script>
+  <script defer src="js/app.js?v=1.2"></script>
+
+  <section id="app" class="section" v-cloak>
+
+    <div class="container">
+
+      <h1 class="title">✨ 令牌获取器 ✨</h1>
+
+      <div class="field">
+        <label class="label is-uppercase">🔑令牌生成密钥:</label>
+        <div class="control">
+          <input class="input" type="text" v-model="secret_key" placeholder="The secret key (in base-32 format)">
+        </div>
+      </div>
+
+      <div class="field">
+        <label class="label is-uppercase">#️⃣令牌位数:</label>
+        <div class="control">
+          <input class="input" type="text" v-model="digits" placeholder="Usually 6">
+        </div>
+      </div>
+
+      <div class="field">
+        <label class="label is-uppercase">🕐令牌周期(秒):</label>
+        <div class="control">
+          <input class="input" type="text" v-model="period" placeholder="Usually 30">
+        </div>
+      </div>
+
+      <div class="content">
+        <span class="has-text-grey is-size-7">令牌将于 {{ updatingIn }} 秒后更新</span>
+        <progress class="progress is-info is-small" v-bind:value="updatingIn" :max="period"></progress>
+      </div>
+
+      <div class="box">
+        <p class="title is-size-</div>1 has-text-centered" id="tokens"><span id="token">{{ token }}</span></p>
+      </div>
+      
+
+      <div class="control is-clearfix">
+        <a class="button is-light is-pulled-right" id="clipboard-button" data-clipboard-target="#token" title="复制令牌到剪切板">
+          <img src="img/clippy.svg" height="20" width="20">
+        </a>
+      </div>
+
+      <br>
+
+      <div class="spacer">
+        <div class="notification is-info" style="background-color: white; color: black; opacity: 0.7; ">
+          <p><strong>使用说明：</strong></p>
+          <p>1. 在<strong>"令牌生成密钥"</strong>输入框中输入你的秘钥。</p>
+          <p>2. 分别在<strong>"令牌位数"</strong>和<strong>"令牌周期"</strong>输入框中输入对应信息。例如Github的2FA令牌位数为6位，令牌周期为30秒。</p>
+          <p>3. 全部信息输入完成后，复制按钮上面的白框中将会显示出令牌码和令牌更换剩余时间，复制此令牌到需要验证的地方即可通过验证。</p>
+          <p><strong>Tips: 你可以单击复制按钮来快速复制令牌码。</strong></p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+
+  <footer class="footer" style="background-color: white; opacity: 0.5; text-shadow: 0 0 5px #aba;">
+    <div class="container">
+      <div class="content has-text-centered">
+        Hosted by <a href="https://pages.cloudflare.com">Cloudflare Pages</a>. Thank you Cloudflare!
+        <br>Built by <a href="https://ivoura.de">Ivoura</a>. Source on <a href="https://github.com/ivoura/Iv-totp-generator">Github</a>.
+      </div>
+    </div>
+  </footer>
+
+</body>
+</html>
